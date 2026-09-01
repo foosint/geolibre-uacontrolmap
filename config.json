@@ -1,0 +1,13 @@
+{
+  "source_url": "https://github.com/owlmaps/UAControlMapBackups/raw/refs/heads/latest/latest.kmz",
+
+  "output_directory": "generated",
+
+  "project_name": "UA Control Map",
+
+  "include_folders": [],
+
+  "exclude_folders": [],
+
+  "include_descendants": true
+}
