@@ -48,13 +48,13 @@ jobs:
 
       - name: Download latest KMZ
         run: |
-          uv run python download_kmz.py \
+          uv run python src/download_kmz.py \
             "$(python -c 'import json; print(json.load(open("config.json"))["source_url"])')" \
             source.kmz
 
       - name: Convert KMZ
         run: |
-          uv run kmz2geolibre \
+          uv run src/kmz2geolibre \
             source.kmz \
             --config config.json
 
