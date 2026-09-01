@@ -54,7 +54,7 @@ jobs:
 
       - name: Convert KMZ
         run: |
-          uv run src/kmz2geolibre \
+          uv run python src/kmz2geolibre.py \
             source.kmz \
             --config config.json
 
