@@ -32,7 +32,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-
       - name: Checkout repository
         uses: actions/checkout@v6
 
@@ -49,27 +48,23 @@ jobs:
 
       - name: Download latest KMZ
         run: |
-          uv run python src/download_kmz.py \
+          uv run python download_kmz.py \
             "$(python -c 'import json; print(json.load(open("config.json"))["source_url"])')" \
             source.kmz
 
       - name: Convert KMZ
         run: |
-          uv run python src/kmz2geolibre.py \
+          uv run kmz2geolibre \
             source.kmz \
             --config config.json
 
       - name: Remove source KMZ
-        run: |
-          rm -f source.kmz
+        run: rm -f source.kmz
 
       - name: Verify output
         run: |
-          test -f generated/*.geolibre.json
+          test -d generated
           find generated -type f -print
-
-      - name: Configure GitHub Pages
-        uses: actions/configure-pages@v5
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v4
@@ -78,15 +73,11 @@ jobs:
 
   deploy:
     needs: build
-
     runs-on: ubuntu-latest
 
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
-
       - name: Deploy to GitHub Pages
-        id: deployment
         uses: actions/deploy-pages@v4
